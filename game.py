@@ -7,6 +7,14 @@ pygame.init()
 screen_width = 1080
 screen_height = 720
 WHITE = (255, 255, 255)
+IMAGENS_PARADO = [
+    pygame.transform.scale2x(pygame.image.load(os.path.join('imgs/parado', 'imagem_1.png'))),
+    pygame.transform.scale2x(pygame.image.load(os.path.join('imgs/parado', 'imagem_2.png'))),
+    pygame.transform.scale2x(pygame.image.load(os.path.join('imgs/parado', 'imagem_3.png'))),
+    pygame.transform.scale2x(pygame.image.load(os.path.join('imgs/parado', 'imagem_4.png'))),
+    pygame.transform.scale2x(pygame.image.load(os.path.join('imgs/parado', 'imagem_5.png'))),
+    pygame.transform.scale2x(pygame.image.load(os.path.join('imgs/parado', 'imagem_6.png'))),
+]
 
 pygame.display.set_caption("Street Fighter")
 screen = pygame.display.set_mode((screen_width, screen_height))
@@ -24,8 +32,7 @@ class Hadouken:
 
 class Character:
     def __init__(self, x, y): 
-        self.imagem = pygame.image.load(os.path.join('imgs/parado', 'imagem_1.png'))
-        self.imagem = pygame.transform.scale(self.imagem, (142,294))
+        self.imagem = IMAGENS_PARADO[0]
         self.rect = self.imagem.get_rect()
         self.x = x
         self.y = y
@@ -75,7 +82,8 @@ background = pygame.transform.scale(background, (screen_width, screen_height))
 background_rect = background.get_rect()
 background_rect.topleft = (0,0)
 
-speed = 1 
+speed = 1
+tempo = 0
 
 while True:
     for event in pygame.event.get():
@@ -109,6 +117,26 @@ while True:
         ryu.rect.y = 0
     if ryu.rect.y > screen_height - ground.rect.height - ryu.rect.height:
         ryu.rect.y = screen_height - ground.rect.height - ryu.rect.height
+        
+    #animação dele parado
+    
+    delta = 150
+    
+    if tempo == 0*delta:
+        ryu.imagem = IMAGENS_PARADO[0]
+    if tempo == 1*delta:
+        ryu.imagem = IMAGENS_PARADO[1]
+    if tempo == 2*delta:
+        ryu.imagem = IMAGENS_PARADO[2]
+    if tempo == 3*delta:
+        ryu.imagem = IMAGENS_PARADO[3]
+    if tempo == 4*delta:
+        ryu.imagem = IMAGENS_PARADO[4]
+    if tempo == 5*delta:
+        ryu.imagem = IMAGENS_PARADO[5]
+        tempo = -1
+    
+    tempo += 1
 
     screen.fill(WHITE)
     ground.draw(screen)  # Desenha o chão
