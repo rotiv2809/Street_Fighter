@@ -24,7 +24,8 @@ class Hadouken:
 
 class Character:
     def __init__(self, x, y): 
-        self.imagem = pygame.image.load(os.path.join('imgs', 'minha_imagem.png'))
+        self.imagem = pygame.image.load(os.path.join('imgs/parado', 'imagem_1.png'))
+        self.imagem = pygame.transform.scale(self.imagem, (142,294))
         self.rect = self.imagem.get_rect()
         self.x = x
         self.y = y
@@ -34,12 +35,12 @@ class Character:
     def pular(self):
         # tenho que adicionar gravidade e fazer a animação de mortal do pulo
         if(self.on_ground):
-            self.speed_y -= 5
+            self.speed_y -= 4.5
             self.on_ground = False
         
     def gravidade(self):
         if not self.on_ground:
-            self.speed_y += 0.04
+            self.speed_y += 0.03
     
     def mover(self):
         self.rect.y += self.speed_y
@@ -69,7 +70,7 @@ ryu = Character(100, 100)
 ryu.rect.topleft = (100, screen_height - 150) 
 
 #background
-background = pygame.image.load(os.path.join('imgs','background.jpeg'))
+background = pygame.image.load(os.path.join('imgs','background.png'))
 background = pygame.transform.scale(background, (screen_width, screen_height))
 background_rect = background.get_rect()
 background_rect.topleft = (0,0)
