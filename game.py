@@ -34,7 +34,7 @@ class Hadouken:
         self.imagem = pygame.image.load(os.path.join('imgs','hadouken.jpg'))
         self.x = Character.x
         self.y = Character.y
-        self.speed = 0.5
+        self.speed = 0
     def mover(self):
         self.x += self.speed
     
@@ -45,7 +45,7 @@ class Character:
         self.rect = self.imagem.get_rect()
         self.x = x
         self.y = y
-        self.speed_y = 0
+        self.speed_y = 0.7
         self.on_ground = True
         
     def pular(self):
@@ -91,6 +91,8 @@ background = pygame.transform.scale(background, (screen_width, screen_height))
 background_rect = background.get_rect()
 background_rect.topleft = (0,0)
 
+clock = pygame.time.Clock()
+delta_time = clock.tick(60)/1000 # Há um bug aqui no código. Boa sorte procurando rsrsrs
 speed = 1
 tempo = 0
 tempo_parado = 0
@@ -117,7 +119,7 @@ while True:
             ryu.imagem = IMAGENS_PARA_TRAS[3]
         if tempo == 4*delta:
             ryu.imagem = IMAGENS_PARA_TRAS[4]
-        if tempo == 5*delta:
+        if tempo == 5*delta: oi!
             ryu.imagem = IMAGENS_PARA_TRAS[5]
             tempo = -1
         tempo += 1
@@ -142,7 +144,7 @@ while True:
     if keys[pygame.K_UP]:
         ryu.pular()
     if keys[pygame.K_DOWN]:
-        ryu.rect.y += speed
+        ryu.rect.y += ryu.speed_y
         
     if not any(keys):
         if tempo_parado == 0*delta:
